@@ -76,9 +76,12 @@ bool CalculateVariant(int** matrixC, int** matrixQ, const std::vector<int>& in, 
         for (auto j = i + 1; j < in.size(); j++)
         {
             r += matrixC[i][j] * (matrixQ[in[i] - 1][in[j] - 1] + matrixQ[in[j] -1][in[i] - 1]);
+            if (rMin != -1 && r > rMin)
+            {
+                return false;
+            }
         }
     }
-    //std::cout << r << '\n';
     if (r < rMin || rMin == -1)
     {
         CopyVector(in, min);
@@ -93,7 +96,7 @@ int main()
     boost::timer::auto_cpu_timer t;
     std::srand(std::time(nullptr));
 
-    int matrixSize = 11;
+    int matrixSize = 10;
 
     // расстояние между местами назначения
     int** matrixC = GetCreatedMatrix(matrixSize);
@@ -102,21 +105,12 @@ int main()
     int** matrixQ = GetCreatedMatrix(matrixSize);
 
     // инициализация матрицы расстояний
-    //matrixC[0][1] = 1;
-    //matrixC[0][2] = 2;
-    //matrixC[1][2] = 3;
     GenerateMatrixC(matrixC, matrixSize);
     std::cout << "matrix C:\n";
     PrintMatrix(matrixC, matrixSize);
     std::cout << '\n';
 
     // инициализация матрицы перемещения ресурсов
-    /*matrixQ[0][1] = 6;
-    matrixQ[0][2] = 8;
-    matrixQ[1][2] = 7;
-    matrixQ[1][0] = 3;
-    matrixQ[2][0] = 5;
-    matrixQ[2][1] = 4;*/
     GenerateMatrixQ(matrixQ, matrixSize);
     std::cout << "matrix Q:\n";
     PrintMatrix(matrixQ, matrixSize);
@@ -139,10 +133,8 @@ int main()
 
     do
     {
-//        copy(queueP.begin(), queueP.end(), std::ostream_iterator<size_t>(std::cout, " "));
         if (CalculateVariant(matrixC, matrixQ, queueP, queuePmin, rMin))
         {
-        //CalculateVariant(matrixC, matrixQ, queueP, queuePmin, rMin);
             std::cout << "R = " << rMin << "; vector: ";
             copy(queueP.begin(), queueP.end(), std::ostream_iterator<size_t>(std::cout, " "));
             std::cout << std::endl;
