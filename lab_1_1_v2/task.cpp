@@ -33,6 +33,7 @@ void CopyVector(const std::vector<int>& in, std::vector<int>& out)
     }
 }
 
+// расстояние от 1 до MaxLength
 void GenerateMatrixC(int** matrix, int size)
 {
     for (auto i = 0; i < size; i++)
@@ -44,14 +45,15 @@ void GenerateMatrixC(int** matrix, int size)
     }
 }
 
+// объём передаваемых ресурсов может быть 0
 void GenerateMatrixQ(int** matrix, int size)
 {
     for (auto i = 0; i < size; i++)
     {
         for (auto j = i + 1; j < size; j++)
         {
-            matrix[i][j] = 1 + rand() % MaxVolume;
-            matrix[j][i] = 1 + rand() % MaxVolume;
+            matrix[i][j] = rand() % (MaxVolume + 1);
+            matrix[j][i] = rand() % (MaxVolume + 1);
         }
     }
 }
