@@ -45,7 +45,7 @@ void InitItemsOrder(std::vector<int> &itemsOrder)
     }
 }
 
-bool CalculateVariant(const std::vector<Item>& items, const std::vector<int>& order, std::vector<Item>& backPackBest, int& maxCost)
+bool CalculateVariant(const std::vector<Item>& items, const std::vector<int>& order, std::vector<Item>& backPackBest, int& maxCost, int& backPackBestWeigth)
 {
     std::vector<Item> backPackCur;
     int cost = 0, weight = 0;
@@ -63,6 +63,7 @@ bool CalculateVariant(const std::vector<Item>& items, const std::vector<int>& or
             if (maxCost < cost)
             {
                 maxCost = cost;
+                backPackBestWeigth = weight;
                 backPackBest.clear();
                 for (Item item : backPackCur)
                 {
@@ -79,7 +80,7 @@ bool CalculateVariant(const std::vector<Item>& items, const std::vector<int>& or
 int main()
 {
     boost::timer::auto_cpu_timer t;
-    std::srand(std::time(nullptr));
+    std::srand((int unsigned)std::time(nullptr));
 
     std::vector<Item> items{};
     Item itemSummary = InitItems(items);
@@ -87,11 +88,12 @@ int main()
     std::cout << "All items:" << '\n';
     PrintItems(items);
 
-    std::cout << "Summary: " << itemSummary.w << "kg : " << itemSummary.c << "$\n\n";
+    std::cout << "Summary: " << itemSummary.w << "kg : " << itemSummary.c << "$\n\nBackpack weight limit: " << T << "\n\n";
 
     std::cout << "- - - - - - - - - - - - - - - - - - -\n\n";
 
     int maxCost = 0;
+    int backPackBestWeigth = 0;
     std::vector<Item> backPackBest = {};
     std::vector<int> itemsOrder = {};
 
@@ -99,14 +101,14 @@ int main()
    
     do
     {
-        if (CalculateVariant(items, itemsOrder, backPackBest, maxCost))
+        if (CalculateVariant(items, itemsOrder, backPackBest, maxCost, backPackBestWeigth))
         {
             std::cout << "items:\n";
             for (Item item : backPackBest)
             {
                 std::cout << item.w << "kg : " << item.c << "$\n";
             }
-            std::cout << "---------\n" << "$ = " << maxCost << "\n\n";
+            std::cout << "---------\n" << "$ " << maxCost << " [ " << backPackBestWeigth << " kg ]\n\n";
         }
 
     } while (std::next_permutation(itemsOrder.begin(), itemsOrder.end()));
