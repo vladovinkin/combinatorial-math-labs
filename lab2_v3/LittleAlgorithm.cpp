@@ -41,8 +41,8 @@ int LittleAlgorithm::getMin(vector<vector<int>> matrix, int sel, check pos)
 
 void LittleAlgorithm::matrixProcedure(vector<vector<int>> matrix)
 {
-	//Определяем точку возврата и удаляем необходимое ребро
-	if (matrix.size() - 1 > 2)
+	// Определяем точку возврата и удаляем необходимое ребро
+	if (matrix.size() > 3)
 	{
 		vector<int> vertexes;
 		for (int i = 0; i < result.size(); i++)
@@ -92,7 +92,7 @@ void LittleAlgorithm::matrixProcedure(vector<vector<int>> matrix)
 		}
 	}
 
-	//Вычитаем из каждой строки минимальное значение
+	// Вычитаем из каждой строки минимальное значение
 	for (int i = 0; i < matrix.size() - 1; i++)
 	{
 		int min = 0;
@@ -111,7 +111,7 @@ void LittleAlgorithm::matrixProcedure(vector<vector<int>> matrix)
 		}
 	}
 
-	//Вычитаем из каждого столбца минимальное значение
+	// Вычитаем из каждого столбца минимальное значение
 	for (int i = 0; i < matrix[matrix.size() - 1].size() - 1; i++)
 	{
 		int min = 0;
@@ -146,7 +146,7 @@ void LittleAlgorithm::matrixProcedure(vector<vector<int>> matrix)
 		}
 	}
 
-	//Находим все нули максимальная оценка которых равна Max
+	// Находим все нули максимальная оценка которых равна Max
 	vector<pair<int, int>> Maxs;
 	for (int i = 0; i < matrix.size() - 1; i++)
 	{
@@ -170,7 +170,7 @@ void LittleAlgorithm::matrixProcedure(vector<vector<int>> matrix)
 	{
 		std::cout << Maxs[i].first << " " << Maxs[i].second << "\t";
 	}
-	std::cout << endl;
+	std::cout << "\n";
 
 	// Вывод матрицы
 	showMatrix(matrix);
@@ -188,11 +188,13 @@ void LittleAlgorithm::matrixProcedure(vector<vector<int>> matrix)
 		//Добавляем вершину в массив с результатом
 		result.push_back(Maxs[i]);
 
-		//Если размер матрицы порядка 1, выводим результат и завершаем текущию ветвь
+		//Если размер матрицы порядка 1, выводим результат, сохраняем результат и завершаем текущию ветвь
 		if (matrix.size() - 1 == 1)
 		{
+			resultBest.clear();
 			for (int i = 0; i < result.size(); i++)
 			{
+				resultBest.push_back(result[i]);
 				std::cout << "(" << result[i].first << ", " << result[i].second << ")\t";
 			}
 			std::cout << "\nResult: " << getResultSum() << "\n";
@@ -246,7 +248,7 @@ void LittleAlgorithm::matrixProcedure(vector<vector<int>> matrix)
 		//Вызываем рекурсивно эту же функцию для уже новой матрицы
 		matrixProcedure(temp);
 
-		//Удаляем последние значение из массива с результатом 
+		//Удаляем последнее значение из массива с результатом 
 		result.pop_back();
 	}
 }
@@ -291,9 +293,9 @@ void LittleAlgorithm::showMatrix(vector<vector<int>> temp)
 int LittleAlgorithm::getResultSum()
 {
 	int sum = 0;
-	for (int i = 0; i < result.size(); i++)
+	for (int i = 0; i < resultBest.size(); i++)
 	{
-		sum += data[result[i].first - 1][result[i].second - 1];
+		sum += data[resultBest[i].first - 1][resultBest[i].second - 1];
 	}
 	return sum;
 }
@@ -311,7 +313,6 @@ bool LittleAlgorithm::validateData()
 		}
 	}
 
-	vector<vector<int>> temp(data);
 	for (int i = 0; i < data.size(); i++)
 	{
 		data[i].push_back(i + 1);
@@ -325,4 +326,9 @@ bool LittleAlgorithm::validateData()
 	data.push_back(numeration);
 
 	return true;
+}
+
+std::vector<std::pair<int, int>> LittleAlgorithm::GetEdges()
+{
+	return resultBest;
 }
