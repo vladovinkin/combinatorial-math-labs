@@ -3,7 +3,10 @@
 #include <fstream>
 using namespace std;
 
-LittleAlgorithm::LittleAlgorithm() {}
+LittleAlgorithm::LittleAlgorithm()
+{
+	m_debugModeOutput = true;
+}
 
 void LittleAlgorithm::Run()
 {
@@ -12,12 +15,12 @@ void LittleAlgorithm::Run()
 	{
 		throw "Not valid data.";
 	}
-	matrixProcedure(data);
+	matrixProcedure(m_data);
 }
 
 bool LittleAlgorithm::LoadData(vector<vector<int>> Data)
 {
-	data = Data;
+	m_data = Data;
 	return true;
 }
 
@@ -45,10 +48,10 @@ void LittleAlgorithm::matrixProcedure(vector<vector<int>> matrix)
 	if (matrix.size() > 3)
 	{
 		vector<int> vertexes;
-		for (int i = 0; i < result.size(); i++)
+		for (int i = 0; i < m_result.size(); i++)
 		{
-			vertexes.push_back(result[i].first);
-			vertexes.push_back(result[i].second);
+			vertexes.push_back(m_result[i].first);
+			vertexes.push_back(m_result[i].second);
 		}
 		for (int i = 0; i < vertexes.size(); i++)
 		{
@@ -98,8 +101,11 @@ void LittleAlgorithm::matrixProcedure(vector<vector<int>> matrix)
 		int min = 0;
 		if ((min = getMin(matrix, i, check::Row)) == INT32_MAX)
 		{
-			showMatrix(matrix);
-			std::cout << "\nBad road\n";
+			if (m_debugModeOutput)
+			{
+				showMatrix(matrix);
+				std::cout << "\nBad road\n";
+			}
 			return;
 		}
 		if ((min = getMin(matrix, i, check::Row)) != 0)
@@ -117,8 +123,11 @@ void LittleAlgorithm::matrixProcedure(vector<vector<int>> matrix)
 		int min = 0;
 		if ((min = getMin(matrix, i, check::Col)) == INT32_MAX)
 		{
-			showMatrix(matrix);
-			std::cout << "\nBad road\n";
+			if (m_debugModeOutput)
+			{
+				showMatrix(matrix);
+				std::cout << "\nBad road\n";
+			}
 			return;
 		}
 		if ((min = getMin(matrix, i, check::Col)) != 0)
@@ -164,41 +173,44 @@ void LittleAlgorithm::matrixProcedure(vector<vector<int>> matrix)
 		}
 	}
 
-	//Вывод координат выбранных нулей
-	std::cout << "Maxs - ";
-	for (int i = 0; i < Maxs.size(); i++)
+	if (m_debugModeOutput)
 	{
-		std::cout << Maxs[i].first << " " << Maxs[i].second << "\t";
-	}
-	std::cout << "\n";
+		//Вывод координат выбранных нулей
+		std::cout << "Maxs - ";
+		for (int i = 0; i < Maxs.size(); i++)
+		{
+			std::cout << Maxs[i].first << " " << Maxs[i].second << "\t";
+		}
+		std::cout << "\n";
 
-	// Вывод матрицы
-	showMatrix(matrix);
-	std::cout << '\n';
+		// Вывод матрицы
+		showMatrix(matrix);
+		std::cout << '\n';
+	}
 
 	// Завершаем выполнение данной ветви если нет нулей
 	if (Maxs.size() == 0)
 	{
-		std::cout << "Bad road.\n";
+		if (m_debugModeOutput) std::cout << "Bad road.\n";
 		return;
 	}
 	
 	for (int i = 0; i < Maxs.size(); i++) 
 	{
 		//Добавляем вершину в массив с результатом
-		result.push_back(Maxs[i]);
+		m_result.push_back(Maxs[i]);
 
 		//Если размер матрицы порядка 1, выводим результат, сохраняем результат и завершаем текущию ветвь
 		if (matrix.size() - 1 == 1)
 		{
-			resultBest.clear();
-			for (int i = 0; i < result.size(); i++)
+			m_resultBest.clear();
+			for (int i = 0; i < m_result.size(); i++)
 			{
-				resultBest.push_back(result[i]);
-				std::cout << "(" << result[i].first << ", " << result[i].second << ")\t";
+				m_resultBest.push_back(m_result[i]);
+				if (m_debugModeOutput) std::cout << "(" << m_result[i].first << ", " << m_result[i].second << ")\t";
 			}
-			std::cout << "\nResult: " << getResultSum() << "\n";
-			result.pop_back();
+			if (m_debugModeOutput) std::cout << "\nResult: " << getResultSum() << "\n";
+			m_result.pop_back();
 			return;
 		}
 
@@ -249,7 +261,7 @@ void LittleAlgorithm::matrixProcedure(vector<vector<int>> matrix)
 		matrixProcedure(temp);
 
 		//Удаляем последнее значение из массива с результатом 
-		result.pop_back();
+		m_result.pop_back();
 	}
 }
 
@@ -293,42 +305,47 @@ void LittleAlgorithm::showMatrix(vector<vector<int>> temp)
 int LittleAlgorithm::getResultSum()
 {
 	int sum = 0;
-	for (int i = 0; i < resultBest.size(); i++)
+	for (int i = 0; i < m_resultBest.size(); i++)
 	{
-		sum += data[resultBest[i].first - 1][resultBest[i].second - 1];
+		sum += m_data[m_resultBest[i].first - 1][m_resultBest[i].second - 1];
 	}
 	return sum;
 }
 
 bool LittleAlgorithm::validateData()
 {
-	for (int i = 0; i < data.size(); i++)
+	for (int i = 0; i < m_data.size(); i++)
 	{
-		for (int j = 0; j < data[i].size(); j++)
+		for (int j = 0; j < m_data[i].size(); j++)
 		{
-			if (data[i][j] == 0)
+			if (m_data[i][j] == 0)
 			{
-				data[i][j] = INT32_MAX;
+				m_data[i][j] = INT32_MAX;
 			}
 		}
 	}
 
-	for (int i = 0; i < data.size(); i++)
+	for (int i = 0; i < m_data.size(); i++)
 	{
-		data[i].push_back(i + 1);
+		m_data[i].push_back(i + 1);
 	}
 
 	vector<int> numeration;
-	for (int i = 0; i < data[0].size(); i++)
+	for (int i = 0; i < m_data[0].size(); i++)
 	{
 		numeration.push_back(i + 1);
 	}
-	data.push_back(numeration);
+	m_data.push_back(numeration);
 
 	return true;
 }
 
 std::vector<std::pair<int, int>> LittleAlgorithm::GetEdges()
 {
-	return resultBest;
+	return m_resultBest;
+}
+
+void LittleAlgorithm::setDebugModeOutput(bool isDebugMode)
+{
+	m_debugModeOutput = isDebugMode;
 }

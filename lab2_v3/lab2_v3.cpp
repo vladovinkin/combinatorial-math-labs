@@ -56,6 +56,7 @@ int main()
 	};
 
 	LittleAlgorithm little = LittleAlgorithm();
+	little.setDebugModeOutput(false);
 	little.LoadData(inputMatrix3);
 	little.Run();
 	printFinalResult(little.GetEdges(), little.getResultSum());
