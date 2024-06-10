@@ -2,6 +2,15 @@
 #include "stdafx.h"
 #include "LittleAlgorithm.h"
 
+void printFinalResult(const std::vector<std::pair<int, int>> &edges, int path)
+{
+	for (auto i = 0; i < edges.size(); i++)
+	{
+		std::cout << (i != 0 ? ", " : "") << "(" << edges[i].first << ", " << edges[i].second << ")";
+	}
+	std::cout << "\nResult: " << path << "\n";
+}
+
 int main()
 {
 	boost::timer::auto_cpu_timer t;
@@ -49,6 +58,7 @@ int main()
 	LittleAlgorithm little = LittleAlgorithm();
 	little.LoadData(inputMatrix3);
 	little.Run();
+	printFinalResult(little.GetEdges(), little.getResultSum());
 
 	return 0;
 }
