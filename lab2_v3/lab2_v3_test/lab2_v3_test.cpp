@@ -3,6 +3,10 @@
 #include "../../../oop-homeworks/catch2/catch.hpp"
 #include "../LittleAlgorithm.h"
 
+/*
+* проверял с решениями на сайте https://vinogradovad.github.io/Traveling-salesman-website/
+*/
+
 SCENARIO("Check 5-vertex graph")
 {
 	LittleAlgorithm little = LittleAlgorithm();
