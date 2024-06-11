@@ -10,6 +10,13 @@
 #include "task.h"
 #include "Qap.h"
 
+void ShowResult(int rMin, std::vector<int> queue)
+{
+    std::cout << "R = " << rMin << "; vector: ";
+    copy(queue.begin(), queue.end(), std::ostream_iterator<size_t>(std::cout, " "));
+    std::cout << "\n\n";
+}
+
 int main()
 {
     boost::timer::auto_cpu_timer t;
@@ -38,11 +45,7 @@ int main()
 
     qap.Run();
 
-    std::vector<int> result = qap.GetQueueMin();
-
-    std::cout << "R = " << qap.GetRMin() << "; vector: ";
-    copy(result.begin(), result.end(), std::ostream_iterator<size_t>(std::cout, " "));
-    std::cout << "\n";
+    ShowResult(qap.GetRMin(), qap.GetQueueMin());
 
     return 0;
 }
