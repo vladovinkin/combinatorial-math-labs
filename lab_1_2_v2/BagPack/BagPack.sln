@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lab_1_2_v2", "lab_1_2_v2.vcxproj", "{DD6B9405-1E1B-402C-B187-B77A11EB5A56}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BagPack", "lab_1_2_v2.vcxproj", "{DD6B9405-1E1B-402C-B187-B77A11EB5A56}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BagPackTest", "..\BagPackTest\BagPackTest.vcxproj", "{7FF0BBB5-CB59-4105-90F6-8468772A3B3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{DD6B9405-1E1B-402C-B187-B77A11EB5A56}.Release|x64.Build.0 = Release|x64
 		{DD6B9405-1E1B-402C-B187-B77A11EB5A56}.Release|x86.ActiveCfg = Release|Win32
 		{DD6B9405-1E1B-402C-B187-B77A11EB5A56}.Release|x86.Build.0 = Release|Win32
+		{7FF0BBB5-CB59-4105-90F6-8468772A3B3D}.Debug|x64.ActiveCfg = Debug|x64
+		{7FF0BBB5-CB59-4105-90F6-8468772A3B3D}.Debug|x64.Build.0 = Debug|x64
+		{7FF0BBB5-CB59-4105-90F6-8468772A3B3D}.Debug|x86.ActiveCfg = Debug|Win32
+		{7FF0BBB5-CB59-4105-90F6-8468772A3B3D}.Debug|x86.Build.0 = Debug|Win32
+		{7FF0BBB5-CB59-4105-90F6-8468772A3B3D}.Release|x64.ActiveCfg = Release|x64
+		{7FF0BBB5-CB59-4105-90F6-8468772A3B3D}.Release|x64.Build.0 = Release|x64
+		{7FF0BBB5-CB59-4105-90F6-8468772A3B3D}.Release|x86.ActiveCfg = Release|Win32
+		{7FF0BBB5-CB59-4105-90F6-8468772A3B3D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
