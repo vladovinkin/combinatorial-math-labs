@@ -139,10 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Qap.cpp" />
     <ClCompile Include="task.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="task.h" />
+    <ClInclude Include="Qap.h" />
+    <ClInclude Include="Task.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
