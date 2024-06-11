@@ -9,6 +9,8 @@ public:
 	void showMatrixC() const;
 	void showMatrixQ() const;
 	void setDebugModeOutput(bool);
+	int GetRMin() const;
+	std::vector<int> GetQueueMin() const;
 private:	
 	void showMatrix(const std::vector<std::vector<int>>&) const;
 	void CopyVector(const std::vector<int>& in, std::vector<int>& out);

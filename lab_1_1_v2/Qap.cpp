@@ -103,3 +103,13 @@ bool Qap::CalculateVariant()
 	}
 	return false;
 }
+
+int Qap::GetRMin() const
+{
+	return m_rMin;
+}
+
+std::vector<int> Qap::GetQueueMin() const
+{
+	return m_queuePmin;
+}

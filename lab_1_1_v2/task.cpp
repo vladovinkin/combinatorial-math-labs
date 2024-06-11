@@ -38,5 +38,11 @@ int main()
 
     qap.Run();
 
+    std::vector<int> result = qap.GetQueueMin();
+
+    std::cout << "R = " << qap.GetRMin() << "; vector: ";
+    copy(result.begin(), result.end(), std::ostream_iterator<size_t>(std::cout, " "));
+    std::cout << "\n";
+
     return 0;
 }
