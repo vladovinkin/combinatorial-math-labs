@@ -18,12 +18,18 @@
     <ClCompile Include="Task.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BackPack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="task.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BackPack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

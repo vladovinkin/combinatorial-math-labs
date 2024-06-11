@@ -1,10 +1,5 @@
 ﻿#include "task.h"
-
-struct Item
-{
-    int w;
-    int c;
-};
+#include "BackPack.h"
 
 constexpr int GenMaxCost = 20;
 constexpr int GenMaxWeight = 30;
@@ -77,11 +72,22 @@ bool CalculateVariant(const std::vector<Item>& items, const std::vector<int>& or
     return false;
 }
 
+int64_t next_combination_mask(int64_t x)
+{
+    int64_t a = x & -x;
+    int64_t b = x + a;
+    int64_t c = b ^ x;
+    a <<= 2;
+    c /= a;
+    return b | c;
+}
+
 int main()
 {
     boost::timer::auto_cpu_timer t;
     std::srand((int unsigned)std::time(nullptr));
 
+ /*
     std::vector<Item> items{};
     Item itemSummary = InitItems(items);
 
@@ -112,6 +118,31 @@ int main()
         }
 
     } while (std::next_permutation(itemsOrder.begin(), itemsOrder.end()));
-    
+   
+ 
+    int64_t current = 0x0F; // первая битовая маска;
+    int64_t last = 1 << 20; // 52-й бит появится только когда мы рассмотрим все комбинации из 52 карт, и перейдем к 53-й
+    do {
+        std::cout << current << "\t"; // что-то делаем...
+        current = next_combination_mask(current); // переходим к следующей руке
+    } while (current < last);
+    */
+
+    std::vector<Item> items = {
+        {1, 2},
+        {3, 4},
+        {5, 6},
+        {7, 8},
+        {9, 10},
+        {11, 12},
+        {13, 14},
+        {15, 16},
+    };
+    int maxWeight = 20;
+
+    BackPack backPack = BackPack(maxWeight, items);
+    backPack.SetDebugOutputMode(true);
+    backPack.Run();
+
     return 0;
 }
