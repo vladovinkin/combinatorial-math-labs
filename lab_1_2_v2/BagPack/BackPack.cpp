@@ -10,7 +10,7 @@ BackPack::BackPack(int weight, const std::vector<Item>& items)
 void BackPack::Init() {
 	SetDebugOutputMode(false);
 	m_backPackBest = {};
-	m_backPackBestWeigth = 0;
+	m_backPackBestWeight = 0;
 	m_backPackBestCost = 0;
 
 	// заполнение битовых составляющих и инициализирующих масок
@@ -37,11 +37,12 @@ void BackPack::Run()
 		int64_t last = static_cast <uint64_t>(1) << numItems;
 		do 
 		{
+			//std::cout << current << "\t";
 			if (CalculateVariant(current) && m_debugModeOutput)
 			{
 				// вывод содержимого очередного более удачного сета
 				std::cout << "BackPack cost: " << m_backPackBestCost << "\n";
-				std::cout << "BackPack weight: " << m_backPackBestWeigth << "\n";
+				std::cout << "BackPack weight: " << m_backPackBestWeight << "\n";
 				std::cout << "BackPack items:\t";
 				for (Item item : m_backPackBest)
 				{
@@ -54,9 +55,9 @@ void BackPack::Run()
 	}
 }
 
-int BackPack::GetBackPackBestWeigth()
+int BackPack::GetBackPackBestWeight()
 {
-	return m_backPackBestWeigth;
+	return m_backPackBestWeight;
 }
 
 int BackPack::GetBackPackBestCost()
@@ -99,8 +100,10 @@ bool BackPack::CalculateVariant(uint64_t itemsSet)
 	if (cost > m_backPackBestCost)
 	{
 		m_backPackBest = backPackContent;
-		m_backPackBestWeigth = weight;
+		m_backPackBestWeight = weight;
 		m_backPackBestCost = cost;
+
+		return true;
 	}
 
 	return false;

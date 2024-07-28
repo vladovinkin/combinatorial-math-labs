@@ -15,7 +15,7 @@ public:
     void SetDebugOutputMode(bool isDebug);
     void Run();
     int GetBackPackBestCost();
-    int GetBackPackBestWeigth();
+    int GetBackPackBestWeight();
     std::vector<Item> GetBackPackBest();
     static int64_t NextCombinationMask(int64_t x)
     {
@@ -31,7 +31,7 @@ private:
     bool CalculateVariant(uint64_t itemsSet);
     int m_weight_limit;
     std::vector<Item> m_items;
-    int m_backPackBestWeigth;
+    int m_backPackBestWeight;
     int m_backPackBestCost;
     std::vector<Item> m_backPackBest;
     bool m_debugModeOutput;

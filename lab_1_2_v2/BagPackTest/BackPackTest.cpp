@@ -1,20 +1,30 @@
 ﻿#include <iostream>
 #define CATCH_CONFIG_MAIN
-#include "../../../oop-homeworks/catch2/catch.hpp"
+#include "../oop-homeworks/catch2/catch.hpp"
+#include "../BagPack/BackPack.h"
 
-SCENARIO("Проверка...")
+SCENARIO("Проверка #1")
 {
 	setlocale(LC_ALL, "rus");
 
-	GIVEN("Подготовленные ответы")
+	GIVEN("Подготовленные ответы #1")
 	{
+        std::vector<Item> items = {
+        {1, 2},
+        
+        };
+        int maxWeight = 55;
 
-		WHEN("Запуск расчёта")
+		BackPack backPack = BackPack(maxWeight, items);
+
+		WHEN("Запуск расчёта #1")
 		{
+			backPack.Run();
 
-			THEN("Получаем оптимальные данные")
+			THEN("Получаем оптимальные данные #1")
 			{
-				CHECK(true);
+				CHECK(backPack.GetBackPackBestCost() == 34);
+				CHECK(backPack.GetBackPackBestWeight() == 34);
 			}
 		}
 	}
