@@ -132,10 +132,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Faces.cpp" />
+    <ClCompile Include="Graph.cpp" />
     <ClCompile Include="lab3_v3_project.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Faces.h" />
+    <ClInclude Include="Graph.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
