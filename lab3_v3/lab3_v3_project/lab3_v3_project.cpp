@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include "Faces.h"
+#include <algorithm>
 
 int main()
 {
@@ -15,4 +16,13 @@ int main()
 
     std::cout << "Hello World!\n";
     std::cout << f.ToString();
+
+    std::vector<int> first{1, 2, 3};
+    std::vector<int> second{11, 12, 13};
+
+    first.insert(first.end(), second.begin(), second.end());
+    for (std::vector<int>::iterator it = first.begin(); it != first.end(); ++it)
+    {
+        std::cout << *it << "\t";
+    }
 }
