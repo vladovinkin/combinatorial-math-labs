@@ -47,14 +47,8 @@ std::vector<int> Graph::GetCycle()
 	if (!hasCycle)
 	{
 		cycle.clear();
-		return cycle;
 	}
-	std::vector<int> result;
-	for (int v : cycle)
-	{
-		result.push_back(v);
-	}
-	return result;
+	return cycle;
 }
 
 // Поиск простого цикла, используя DFS алгоритм
@@ -88,11 +82,11 @@ bool Graph::DfsCycle(std::vector<int>& result, std::vector<int>& used, int paren
 			//"Выдергиваем" вершины цикла из порядка обхода
 			for (auto j = 0; j < result.size(); j++)
 			{
-				if (result.at(j) == i)
+				if (result[j] == i)
 				{
 					for (auto k = j; k < result.size(); k++)
 					{
-						cycle.push_back(result.at(k));
+						cycle.push_back(result[k]);
 					}
 					result.clear();
 					result = cycle;
@@ -108,7 +102,7 @@ bool Graph::DfsCycle(std::vector<int>& result, std::vector<int>& used, int paren
 
 //Поиск связных компонент графа G - G', дополненного ребрами из G,
 // один из концов которых принадлежит связной компоненте, а другой G'
-void Graph::DfsSegments(std::vector<int> used, std::vector<bool> laidVertexes, Graph result, int v)
+void Graph::DfsSegments(std::vector<int>& used, std::vector<bool>& laidVertexes, Graph& result, int v)
 {
 	used[v] = 1;
 	for (int i = 0; i < m_size; i++)
@@ -124,7 +118,7 @@ void Graph::DfsSegments(std::vector<int> used, std::vector<bool> laidVertexes, G
 	}
 }
 
-std::vector<Graph> Graph::GetSegments(std::vector<bool> laidVertexes, std::vector<std::vector<bool>> edges)
+std::vector<Graph> Graph::GetSegments(std::vector<bool>& laidVertexes, std::vector<std::vector<bool>>& edges)
 {
 	std::vector<Graph> segments{};
 	for (auto i = 0; i < m_size; i++)
@@ -155,7 +149,7 @@ std::vector<Graph> Graph::GetSegments(std::vector<bool> laidVertexes, std::vecto
 }
 
 //Поиск цепи в выбранном сегменте, используя DFS алгоритм
-void Graph::DfsChain(std::vector<int> used, std::vector<bool> laidVertexes, std::vector<int> chain, int v)
+void Graph::DfsChain(std::vector<int>& used, std::vector<bool>& laidVertexes, std::vector<int>& chain, int v)
 {
 	used[v] = 1;
 	chain.push_back(v);
@@ -176,7 +170,7 @@ void Graph::DfsChain(std::vector<int> used, std::vector<bool> laidVertexes, std:
 	}
 }
 
-std::vector<int> Graph::GetChain(std::vector<bool> laidVertexes)
+std::vector<int> Graph::GetChain(std::vector<bool>& laidVertexes)
 {
 	std::vector<int> result{};
 	for (auto i = 0; i < m_size; i++)
@@ -202,7 +196,7 @@ std::vector<int> Graph::GetChain(std::vector<bool> laidVertexes)
 	return result;
 }
 
-void Graph::LayChain(std::vector<std::vector<bool>> result, std::vector<int> chain, bool cyclic)
+void Graph::LayChain(std::vector<std::vector<bool>>& result, std::vector<int>& chain, bool cyclic)
 {
 	for (auto i = 0; i < chain.size() - 1; i++)
 	{
@@ -221,7 +215,7 @@ bool Graph::VectorIntContains(std::vector<int>& values, int target)
 }
 
 //Проверка на то, что данный сегмент содержится в данной грани
-bool Graph::IsFaceContainsSegment(std::vector<int> face, Graph segment, std::vector<bool> laidVertexes)
+bool Graph::IsFaceContainsSegment(std::vector<int>& face, Graph& segment, std::vector<bool>& laidVertexes)
 {
 	for (auto i = 0; i < m_size; i++)
 	{
@@ -239,7 +233,7 @@ bool Graph::IsFaceContainsSegment(std::vector<int> face, Graph segment, std::vec
 	return true;
 }
 
-std::vector<int> Graph::CalcNumOfFacesContainedSegments(std::vector<std::vector<int>> intFaces, std::vector<int> extFace, std::vector<Graph> segments, std::vector<bool> laidVertexes, std::vector<std::vector<int>> destFaces)
+std::vector<int> Graph::CalcNumOfFacesContainedSegments(std::vector<std::vector<int>>& intFaces, std::vector<int>& extFace, std::vector<Graph>& segments, std::vector<bool>& laidVertexes, std::vector<std::vector<int>>& destFaces)
 {
 	std::vector<int> count(segments.size(), 0);
 	for (auto i = 0; i < segments.size(); i++)
@@ -263,7 +257,7 @@ std::vector<int> Graph::CalcNumOfFacesContainedSegments(std::vector<std::vector<
 
 // Получить плоскую укладку графа
 // Возвращаются все грани уложенного планарного графа
-// Если это невозможно(граф не планарный), то null
+// Если это невозможно(граф не планарный), то {}{}
 Faces Graph::GetPlanarLaying()
 {
 	//Если граф одновершинный, то возвращаем две грани

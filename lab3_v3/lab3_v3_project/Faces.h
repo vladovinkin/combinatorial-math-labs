@@ -10,6 +10,7 @@ public:
 	const std::vector<int> GetExternal();
 	std::string ToString();
 	std::string VectorIntToString(const std::vector<int>& data);
+	int GetSize()const;
 private:
 	std::vector<std::vector<int>> m_interior;
 	std::vector<int> m_external;

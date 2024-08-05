@@ -45,3 +45,8 @@ std::string Faces::VectorIntToString(const std::vector<int>& data)
 	}
 	return result + "]";
 }
+
+int Faces::GetSize()const
+{
+	return static_cast<int>(m_size);
+}
