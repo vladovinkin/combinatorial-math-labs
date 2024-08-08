@@ -31,7 +31,7 @@ int main()
         { 0, 0, 0, 0, 1, 1, 0 },
     };
 
-    Graph gr = Graph(graph3);
+    Graph gr = Graph(graph1);
     Faces planar = gr.GetPlanarLaying();
     if (planar.GetSize() != 0)
     {

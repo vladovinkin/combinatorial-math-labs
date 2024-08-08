@@ -132,7 +132,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\lab3_v3_project\Faces.cpp" />
+    <ClCompile Include="..\lab3_v3_project\Graph.cpp" />
     <ClCompile Include="lab3_test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\lab3_v3_project\Faces.h" />
+    <ClInclude Include="..\lab3_v3_project\Graph.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

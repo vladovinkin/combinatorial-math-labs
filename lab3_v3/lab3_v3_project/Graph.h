@@ -23,7 +23,6 @@ private:
 	std::vector<int> GetChain(std::vector<bool>& laidVertexes);
 	bool IsFaceContainsSegment(std::vector<int>& face, Graph& segment, std::vector<bool>& laidVertexes);
 	std::vector<int> CalcNumOfFacesContainedSegments(std::vector<std::vector<int>>& intFaces, std::vector<int>& extFace, std::vector<Graph>& segments, std::vector<bool>& laidVertexes, std::vector<std::vector<int>>& destFaces);
-	
 private:
 	std::vector<std::vector<int>> m_matrix;
 	int m_size;
