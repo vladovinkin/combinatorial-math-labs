@@ -50,3 +50,58 @@ int Faces::GetSize()const
 {
 	return static_cast<int>(m_size);
 }
+
+void Faces::ReverseVector(std::vector<int>& data)
+{
+	std::vector<int> temp{};
+	while (data.size() > 0)
+	{
+		temp.push_back(data[data.size() - 1]);
+		data.pop_back();
+	}
+	data = temp;
+}
+
+bool Faces::IsEqualFaces(const std::vector<int>& face1, const std::vector<int>& face2)
+{
+	if (face1 == face2)
+	{
+		return true;
+	}
+
+	std::vector<int> temp = face2;
+	if (face1.size() == temp.size())
+	{
+		for (auto i = 1; i < face1.size(); i++)
+		{
+			auto iter = temp.begin();
+			temp.insert(iter, temp[temp.size() - 1]);
+			temp.pop_back();
+			if (temp == face1)
+			{
+				return true;
+			}
+		}
+
+		ReverseVector(temp);
+
+		if (face1 == temp)
+		{
+			return true;
+		}
+
+		for (auto i = 1; i < face1.size(); i++)
+		{
+			auto iter = temp.begin();
+			temp.insert(iter, temp[temp.size() - 1]);
+			temp.pop_back();
+			if (temp == face1)
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
