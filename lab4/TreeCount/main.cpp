@@ -13,15 +13,7 @@ int main()
     auto tc = TreeCount(m);
 
     Matrix km = tc.GetKirchhoffMatrix();
-
-    for (auto i = 0; i < km.size(); i++)
-    {
-        for (auto j = 0; j < km.size(); j++)
-        {
-            std::cout << km[i][j] << "\t";
-        }
-        std::cout << "\n";
-    }
+    std::cout << tc.GetCountTree() << "\n";
 
     return 0;
 }

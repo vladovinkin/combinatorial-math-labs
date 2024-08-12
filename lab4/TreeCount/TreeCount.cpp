@@ -36,3 +36,45 @@ Matrix TreeCount::GetMinor()
 	return minor;
 }
 
+int TreeCount::GetDeterminant(Matrix& matrix)
+{
+	int size = static_cast<int>(matrix.size());
+	double det = 1.0;
+
+	for (int i = 0; i < size; i++)
+	{
+		int maxRowElem = i;
+		for (int k = i + 1; k < size; k++)
+		{
+			if (std::abs(matrix[k][i]) > std::abs(matrix[maxRowElem][i]))
+			{
+				maxRowElem = k;
+			}
+		}
+		if (matrix[maxRowElem][i] < DBL_EPSILON)
+		{
+			return 0;
+		}
+		if (i != maxRowElem)
+		{
+			std::swap(matrix[maxRowElem], matrix[i]);
+			det = -det;
+		}
+		det *= matrix[i][i];
+		for (int k = i + 1; k < size; k++)
+		{
+			double fact = matrix[k][i] / matrix[i][i];
+			for (int j = i; j < size; j++)
+			{
+				matrix[k][j] -= fact * matrix[i][j];
+			}
+		}
+	}
+	return static_cast<int>(det);
+}
+
+int TreeCount::GetCountTree()
+{
+	Matrix minor = GetMinor();
+	return std::abs(GetDeterminant(minor));
+}
