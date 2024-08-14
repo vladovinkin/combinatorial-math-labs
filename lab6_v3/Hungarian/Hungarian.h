@@ -15,6 +15,7 @@ public:
 	std::vector<int> GetAssignment();
 	int GetTotalCost();
 	void Algorithm();
+	void PrintResult();
 private:
 	void ReduceRows();
 	void ReduceColumns();
@@ -25,7 +26,6 @@ private:
 	void ChangeMatrix(std::pair<int, int> pos);
 	void ChangeAssign(std::pair<int, int> pos);
 	void FindAssignment();
-	void PrintResult();
 private:
 	Matrix m_matrix;
 	Matrix m_matrixCopy;

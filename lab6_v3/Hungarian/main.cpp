@@ -14,6 +14,7 @@ int main()
     
     Hungarian hungarian = Hungarian(src);
     hungarian.Algorithm();
+    hungarian.PrintResult();
 
     return 0;
 }

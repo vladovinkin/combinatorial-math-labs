@@ -237,5 +237,4 @@ std::vector<int> Hungarian::GetAssignment()
 void Hungarian::Algorithm()
 {
 	FindAssignment();
-	PrintResult();
 }
