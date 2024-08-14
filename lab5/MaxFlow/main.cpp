@@ -56,7 +56,7 @@ int main()
 
     finder.PrintMaxFlowAsMatrix();
 
-    std::cout << "Max flow = " << maximumFlow;
+    std::cout << "Max flow = " << maximumFlow << '\n';
 
     return 0;
 }
