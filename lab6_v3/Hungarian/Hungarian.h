@@ -12,19 +12,22 @@ class Hungarian
 {
 public:
 	Hungarian(const Matrix& srcMatrix);
+	std::vector<int> GetAssignment();
+	int GetTotalCost();
 	void Algorithm();
 private:
 	void ReduceRows();
 	void ReduceColumns();
 	void CoverZeros(std::vector<bool>& coveredRows, std::vector<bool>& coveredCols);
 	void UpdateMatrix(std::vector<bool>& coveredRows, std::vector<bool>& coveredCols);
-	void AssignJob(std::vector<int>& assignment);
-	bool CheckAssignJob(const std::vector<int>& assignment, std::pair <int, int>& pos);
+	void AssignJob();
+	bool CheckAssignJob(std::pair <int, int>& pos);
 	void ChangeMatrix(std::pair<int, int> pos);
-	void ChangeAssign(std::vector<int>& assignment, std::pair<int, int> pos);
-	void FindAssignment(std::vector<int>& assignment);
-	void PrintResult(const std::vector<int> &assignment);
+	void ChangeAssign(std::pair<int, int> pos);
+	void FindAssignment();
+	void PrintResult();
 private:
 	Matrix m_matrix;
-	Matrix m_matrix_copy;
+	Matrix m_matrixCopy;
+	std::vector<int> m_assignment;
 };

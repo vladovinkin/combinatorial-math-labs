@@ -3,7 +3,7 @@
 Hungarian::Hungarian(const Matrix& srcMatrix)
 {
 	m_matrix = srcMatrix;
-	m_matrix_copy = srcMatrix;
+	m_matrixCopy = srcMatrix;
 }
 
 void Hungarian::ReduceRows()
@@ -105,7 +105,7 @@ void Hungarian::UpdateMatrix(std::vector<bool>& coveredRows, std::vector<bool>& 
 	}
 }
 
-void Hungarian::AssignJob(std::vector<int>& assignment)
+void Hungarian::AssignJob()
 {
 	for (auto i = 0; i < m_matrix.size(); i++)
 	{
@@ -113,22 +113,22 @@ void Hungarian::AssignJob(std::vector<int>& assignment)
 		{
 			if (m_matrix[i][j] == 0)
 			{
-				assignment.push_back(j);
+				m_assignment.push_back(j);
 				break;
 			}
 		}
 	}
 }
 
-bool Hungarian::CheckAssignJob(const std::vector<int>& assignment, std::pair <int, int>& pos)
+bool Hungarian::CheckAssignJob(std::pair <int, int>& pos)
 {
-	for (auto i = 0; i < assignment.size(); i++)
+	for (auto i = 0; i < m_assignment.size(); i++)
 	{
-		for (auto j = i + 1; j < assignment.size(); j++)
+		for (auto j = i + 1; j < m_assignment.size(); j++)
 		{
-			if (assignment[i] == assignment[j])
+			if (m_assignment[i] == m_assignment[j])
 			{
-				pos = std::make_pair(i, assignment[i]);
+				pos = std::make_pair(i, m_assignment[i]);
 				return true;
 			}
 		}
@@ -167,23 +167,23 @@ void Hungarian::ChangeMatrix(std::pair<int, int> pos)
 	}
 }
 
-void Hungarian::ChangeAssign(std::vector<int>& assignment, std::pair<int, int> pos)
+void Hungarian::ChangeAssign(std::pair<int, int> pos)
 {
-	assignment.clear();
+	m_assignment.clear();
 	for (auto i = 0; i < m_matrix.size(); i++)
 	{
 		for (auto j = 0; j < m_matrix[i].size(); j++)
 		{
 			if (m_matrix[i][j] == 0)
 			{
-				assignment.push_back(j);
+				m_assignment.push_back(j);
 				break;
 			}
 		}
 	}
 }
 
-void Hungarian::FindAssignment(std::vector<int>& assignment)
+void Hungarian::FindAssignment()
 {
 	ReduceRows();
 	ReduceColumns();
@@ -200,30 +200,42 @@ void Hungarian::FindAssignment(std::vector<int>& assignment)
 		UpdateMatrix(coveredRows, coveredCols);
 	}
 
-	AssignJob(assignment);
+	AssignJob();
 	std::pair <int, int> position;
-	if (CheckAssignJob(assignment, position))
+	if (CheckAssignJob(position))
 	{
 		ChangeMatrix(position);
-		ChangeAssign(assignment, position);
+		ChangeAssign(position);
 	}
 }
 
-void Hungarian::PrintResult(const std::vector<int>& assignment)
+int Hungarian::GetTotalCost()
 {
 	int totalCost = 0;
-	for (auto i = 0; i < assignment.size(); i++)
+	for (auto i = 0; i < m_assignment.size(); i++)
 	{
-		totalCost += m_matrix_copy[i][assignment[i]];
-		std::cout << "Worker " << i + 1 << " assigned to job " << assignment[i] + 1 << " with cost "
-			<< m_matrix_copy[i][assignment[i]] << "\n";
+		totalCost += m_matrixCopy[i][m_assignment[i]];
 	}
-	std::cout << "Total cost: " << totalCost << "\n";
+	return totalCost;
+}
+
+void Hungarian::PrintResult()
+{
+	for (auto i = 0; i < m_assignment.size(); i++)
+	{
+		std::cout << "Worker " << i + 1 << " assigned to job " << m_assignment[i] + 1 << " with cost "
+			<< m_matrixCopy[i][m_assignment[i]] << "\n";
+	}
+	std::cout << "Total cost: " << GetTotalCost() << "\n";
+}
+
+std::vector<int> Hungarian::GetAssignment()
+{
+	return m_assignment;
 }
 
 void Hungarian::Algorithm()
 {
-	std::vector<int> assignment;
-	FindAssignment(assignment);
-	PrintResult(assignment);
+	FindAssignment();
+	PrintResult();
 }
